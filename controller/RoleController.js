@@ -6,15 +6,21 @@ class RoleController{
     
     createRole = async (req,res) => {
         try{
-            res.status(200).send("create role");
+            const {roleName} = req.body;
+            const newRole = await Role.create({roleName});
+            res.status(200).send({sucess:true , message:newRole });
         }
         catch(error) {
             res.status(400).send({sucess:false , message:error.message})
         }
     };
+
     getAllRoles = async (req,res) => {
         try{
-            res.status(200).send("get all roles");
+            const allRoles = await Role.findAll({
+                attributes:["id","roleName"]
+            });
+            res.status(200).send({sucess:true , message:allRoles });
         }
         catch(error) {
             res.status(400).send({sucess:false , message:error.message})
@@ -22,7 +28,10 @@ class RoleController{
     };
     getRoleById = async (req,res) => {
         try{
-            res.status(200).send("get role by id");
+            const {id} = req.params;
+            const roleByid = await Role.findByPk({id})
+            if(!roleByid) throw new Error("No existe el rol con ese ID")
+            res.status(200).send({sucess:true , message:roleByid });
         }
         catch(error) {
             res.status(400).send({sucess:false , message:error.message})

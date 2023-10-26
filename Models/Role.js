@@ -7,6 +7,8 @@ class Role extends Model {}
 Role.init({
     roleName:{
         type:DataTypes.STRING(50),
+        allowNull:false,
+        unique:true
     }
 },{
     sequelize: connection,
