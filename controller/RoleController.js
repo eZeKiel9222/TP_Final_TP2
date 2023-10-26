@@ -29,7 +29,7 @@ class RoleController{
     getRoleById = async (req,res) => {
         try{
             const {id} = req.params;
-            const roleByid = await Role.findByPk({id})
+            const roleByid = await Role.findByPk(id)
             if(!roleByid) throw new Error("No existe el rol con ese ID")
             res.status(200).send({sucess:true , message:roleByid });
         }
@@ -39,7 +39,15 @@ class RoleController{
     };
     updateRole = async (req,res) => {
         try{
-            res.status(200).send("update role");
+            const {roleName} = req.body;
+            const {id} = req.params;
+            const updatedRole = await Role.update(
+                { roleName : roleName },
+            {
+              where: { id: id } 
+            })
+            if(!updatedRole) throw new Error ("No se pudo updater el rol con ese ID")
+            res.status(200).send({sucess:true , message:updatedRole })
         }
         catch(error) {
             res.status(400).send({sucess:false , message:error.message})
@@ -47,7 +55,9 @@ class RoleController{
     };
     deleteRole = async (req,res) => {
         try{
-            res.status(200).send("delete role");
+            const {id} = req.params;
+            const deletedRole = await Role.destroy({ where: { id: 1 } })
+            res.status(200).send({sucess:true , message:deletedRole });
         }
         catch(error) {
             res.status(400).send({sucess:false , message:error.message})

@@ -38,7 +38,15 @@ class UserController{
     };
     updateUser = async (req,res) => {
         try{
-            res.status(200).send("update user");
+            const {userLogin,userPassword} = req.body;
+            const {id} = req.params;
+            const updatedUser = await User.update(
+                { userLogin : userLogin , userPassword: userPassword },
+            {
+              where: { id: id } 
+            })
+            if(!updatedUser) throw new Error ("No se pudo updater el rol con ese ID")
+            res.status(200).send({sucess:true , message:updatedUser });
         }
         catch(error) {
             res.status(400).send({sucess:false , message:error.message})
@@ -46,7 +54,9 @@ class UserController{
     };
     deleteUser = async (req,res) => {
         try{
-            res.status(200).send("delete user");
+            const {id} = req.params;
+            const deletedUser = await User.destroy({ where: { id: 1 } })
+            res.status(200).send({sucess:true , message:deletedUser });
         }
         catch(error) {
             res.status(400).send({sucess:false , message:error.message})
