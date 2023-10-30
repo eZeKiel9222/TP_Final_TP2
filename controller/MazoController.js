@@ -7,7 +7,7 @@ class MazoController{
     createMazo = async (req,res) => {
         try{
             const {nombreMazo,id_user,estado,modo} = req.body;
-            const newMazo = await Mazo.create({nombreMazo},{id_user},{estado},{modo});
+            const newMazo = await Mazo.create({nombreMazo,id_user,estado,modo});
             res.status(200).send({sucess:true , message:newMazo });
         }
         catch(error) {
@@ -28,7 +28,7 @@ class MazoController{
     };
     getAllMazosByUser = async (req,res) => {
         try{
-            const {id_user} = req.body;
+            const {id_user} = req.params;
             const allMazosByUser = await Mazo.findAll({
                 attributes:["id","nombreMazo","id_user","estado","modo"]
             },{where: {id_user : id_user }});

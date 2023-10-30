@@ -7,7 +7,7 @@ class MiColeccionController{
     createColeccion = async (req,res) => {
         try{
             const {id_user , id_carta} = req.body;
-            const newColeccion = await MiColeccion.create({id_user},{id_carta});
+            const newColeccion = await MiColeccion.create({id_user,id_carta});
             res.status(200).send({sucess:true , message:newColeccion });
         }
         catch(error) {
@@ -28,7 +28,7 @@ class MiColeccionController{
     };
     getAllColeccionesByIdUser = async (req,res) => {
         try{
-            const {id_user} = req.body;
+            const {id_user} = req.params;
             const coleccionesByid = await MiColeccion.findAll({
                 attributes:["id","id_user","id_carta"] , where : {id_user : id_user}
             });

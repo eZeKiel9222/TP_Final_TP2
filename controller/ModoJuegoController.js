@@ -7,7 +7,7 @@ class ModoJuegoController{
     createModo = async (req,res) => {
         try{
             const {nombreModo , image} = req.body;
-            const newModo = await ModoJuego.create({nombreModo},{image});
+            const newModo = await ModoJuego.create({nombreModo,image});
             res.status(200).send({sucess:true , message:newModo });
         }
         catch(error) {

@@ -7,7 +7,7 @@ class CartaXMazoController{
     createCartaXMazo = async (req,res) => {
         try{
             const {id_mazo,id_carta} = req.body;
-            const newCartaXMazo = await CartaXMazo.create({id_mazo},{id_carta});
+            const newCartaXMazo = await CartaXMazo.create({id_mazo,id_carta});
             res.status(200).send({sucess:true , message:newCartaXMazo });
         }
         catch(error) {
@@ -26,11 +26,12 @@ class CartaXMazoController{
             res.status(400).send({sucess:false , message:error.message})
         }
     };
-    getCartasXMazoByIdMazo = async (req,res) => {
+    getCartasByIdMazo = async (req,res) => {
         try{
-            const {id_mazo} = req.body;
+            const {id_mazo} = req.params;
             const cartasXmazoByid = await CartaXMazo.findAll({
                 attributes:["id","id_mazo","id_carta"] , where: {id_mazo : id_mazo}
+
             });
             if(!cartasXmazoByid) throw new Error("No existe las cartas con ese ID de mazo")
             res.status(200).send({sucess:true , message:cartasXmazoByid });
