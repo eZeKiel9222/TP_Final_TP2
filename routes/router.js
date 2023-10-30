@@ -5,5 +5,6 @@ import userRoutes from "./userRoutes.js";
 const router = Router();
 
 router.use("/role", roleRoutes);
-router.use("/user",userRoutes);
+router.use("/user", userRoutes);
+
 export default router
