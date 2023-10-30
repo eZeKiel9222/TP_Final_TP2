@@ -56,7 +56,7 @@ class RoleController{
     deleteRole = async (req,res) => {
         try{
             const {id} = req.params;
-            const deletedRole = await Role.destroy({ where: { id: 1 } })
+            const deletedRole = await Role.destroy({ where: { id: id } })
             res.status(200).send({sucess:true , message:deletedRole });
         }
         catch(error) {
