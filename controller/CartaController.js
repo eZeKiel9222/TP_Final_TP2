@@ -7,7 +7,7 @@ class CartaController{
     createCarta = async (req,res) => {
         try{
             const {cardName,image,cardurl} = req.body;
-            const newCarta = await Carta.create({cardName},{image},{cardurl});
+            const newCarta = await Carta.create({cardName,image,cardurl});
             res.status(200).send({sucess:true , message:newCarta });
         }
         catch(error) {
