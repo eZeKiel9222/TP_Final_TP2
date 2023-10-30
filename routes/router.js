@@ -19,4 +19,5 @@ router.use("/mazos",mazosRoutes);
 router.use("/coleccion",coleccionRoutes)
 router.use("/cartaXMazo" , cartasXMazoRoutes)
 
+
 export default router

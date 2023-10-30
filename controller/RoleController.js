@@ -1,70 +1,71 @@
 import Role from "../Models/Role.js";
 
+class RoleController {
+    constructor() { }
 
-class RoleController{
-    constructor(){}
-    
-    createRole = async (req,res) => {
-        try{
-            const {roleName} = req.body;
-            const newRole = await Role.create({roleName});
-            res.status(200).send({sucess:true , message:newRole });
+    createRole = async (req, res) => {
+        try {
+            const { roleName } = req.body;
+            const newRole = await Role.create({ roleName });
+            res.status(200).send({ sucess: true, message: newRole });
         }
-        catch(error) {
-            res.status(400).send({sucess:false , message:error.message})
+        catch (error) {
+            res.status(400).send({ sucess: false, message: error.message })
         }
     };
 
-    getAllRoles = async (req,res) => {
-        try{
+    getAllRoles = async (req, res) => {
+        try {
             const allRoles = await Role.findAll({
-                attributes:["id","roleName"]
+                attributes: ["id", "roleName"]
             });
-            res.status(200).send({sucess:true , message:allRoles });
+            res.status(200).send({ sucess: true, message: allRoles });
         }
-        catch(error) {
-            res.status(400).send({sucess:false , message:error.message})
+        catch (error) {
+            res.status(400).send({ sucess: false, message: error.message })
         }
     };
-    getRoleById = async (req,res) => {
-        try{
-            const {id} = req.params;
+
+    getRoleById = async (req, res) => {
+        try {
+            const { id } = req.params;
             const roleByid = await Role.findByPk(id)
-            if(!roleByid) throw new Error("No existe el rol con ese ID")
-            res.status(200).send({sucess:true , message:roleByid });
+            if (!roleByid) throw new Error("No existe el rol con ese ID")
+            res.status(200).send({ sucess: true, message: roleByid });
         }
-        catch(error) {
-            res.status(400).send({sucess:false , message:error.message})
+        catch (error) {
+            res.status(400).send({ sucess: false, message: error.message })
         }
     };
-    updateRole = async (req,res) => {
-        try{
-            const {roleName} = req.body;
-            const {id} = req.params;
+
+    updateRole = async (req, res) => {
+        try {
+            const { roleName } = req.body;
+            const { id } = req.params;
             const updatedRole = await Role.update(
-                { roleName : roleName },
-            {
-              where: { id: id } 
-            })
-            if(!updatedRole) throw new Error ("No se pudo updater el rol con ese ID")
-            res.status(200).send({sucess:true , message:updatedRole })
+                { roleName: roleName },
+                {
+                    where: { id: id }
+                })
+            if (!updatedRole) throw new Error("No se pudo updater el rol con ese ID")
+            res.status(200).send({ sucess: true, message: updatedRole })
         }
-        catch(error) {
-            res.status(400).send({sucess:false , message:error.message})
-        }
-    };
-    deleteRole = async (req,res) => {
-        try{
-            const {id} = req.params;
-            const deletedRole = await Role.destroy({ where: { id: id } })
-            res.status(200).send({sucess:true , message:deletedRole });
-        }
-        catch(error) {
-            res.status(400).send({sucess:false , message:error.message})
+        catch (error) {
+            res.status(400).send({ sucess: false, message: error.message })
         }
     };
-    
-    
-    }
-    
-    export default RoleController
+
+    deleteRole = async (req, res) => {
+        try {
+            const { id } = req.params;
+            const deletedRole = await Role.destroy({ where: { id: 1 } })
+            res.status(200).send({ sucess: true, message: deletedRole });
+        }
+        catch (error) {
+            res.status(400).send({ sucess: false, message: error.message })
+        }
+    };
+
+}
+
+export default RoleController
