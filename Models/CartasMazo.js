@@ -12,6 +12,10 @@ CartasMazo.init({
         references: {
             model : Mazo,
             key:"id",
+        },
+        validate:{
+                notEmpty:{args:true, msg:'No puede estar vacio'},
+                isInt:{args:true,msg:"Tiene que ser un numero Entero"}
         }
     },
     CartaId:{
@@ -19,6 +23,10 @@ CartasMazo.init({
         references: {
             model :  Carta,
             key:"id",
+        },
+        validate:{
+            notEmpty:{args:true, msg:'No puede estar vacio'},
+            isInt:{args:true,msg:"Tiene que ser un numero Entero"}
         }
     },
     amount: {

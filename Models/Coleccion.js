@@ -7,16 +7,15 @@ class Coleccion extends Model {}
 
 
 Coleccion.init({
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true, 
-      },
     UserId:{
         type:DataTypes.INTEGER(11),
         references: {
             model : User,
             key:"id"
+        },
+        validate:{
+            notEmpty:{args:true, msg:'No puede estar vacio'},
+            isInt:{args:true,msg:"Tiene que ser un numero Entero"}
         }
     },
     CartaId:{
@@ -24,8 +23,16 @@ Coleccion.init({
         references: {
             model :  Carta,
             key:"id"
+        },
+        validate:{
+            notEmpty:{args:true, msg:'No puede estar vacio'},
+            isInt:{args:true,msg:"Tiene que ser un numero Entero"}
         }
-    }
+    },
+    amount: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1
+      },
 },{
     sequelize: connection,
     modelName: "Coleccion",
