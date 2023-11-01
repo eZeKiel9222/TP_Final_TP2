@@ -20,7 +20,7 @@ class UserController {
     getAllUsers = async (req, res) => {
         try {
             const allUsers = await User.findAll({
-                attributes: ["id", "userLogin", "userPassword"] , include:[{model:Mazo,
+                attributes: ["id", "userLogin", "userPassword","nickName","email"] , include:[{model:Mazo,
                     attributes:{
                         exclude:['createdAt','updatedAt','UserId']
                     }}]
