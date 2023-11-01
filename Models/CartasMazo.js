@@ -7,17 +7,11 @@ class CartasMazo extends Model {}
 
 
 CartasMazo.init({
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true, 
-      },
     MazoId:{
         type:DataTypes.INTEGER(11),
         references: {
             model : Mazo,
             key:"id",
-            unique:false
         }
     },
     CartaId:{
@@ -25,9 +19,12 @@ CartasMazo.init({
         references: {
             model :  Carta,
             key:"id",
-            unique:false
         }
-    }
+    },
+    amount: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1
+      },
 },{
     sequelize: connection,
     modelName: "CartasMazo",
