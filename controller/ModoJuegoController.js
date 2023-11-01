@@ -1,4 +1,4 @@
-import ModoJuego from "../Models/ModoJuego.js";
+import {ModoJuego} from "../Models/index.js"
 
 
 class ModoJuegoController{

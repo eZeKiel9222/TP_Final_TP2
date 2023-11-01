@@ -1,4 +1,7 @@
-import Mazo from "../Models/Mazo.js";
+import {Carta} from "../Models/index.js";
+import {Mazo} from "../Models/index.js";
+import {ModoJuego} from "../Models/index.js";
+import {User} from "../Models/index.js";
 
 
 class MazoController{
@@ -6,8 +9,8 @@ class MazoController{
     
     createMazo = async (req,res) => {
         try{
-            const {nombreMazo,id_user,estado,modo} = req.body;
-            const newMazo = await Mazo.create({nombreMazo,id_user,estado,modo});
+            const {nombreMazo,UserId,ModoJuegoId,estado,} = req.body;
+            const newMazo = await Mazo.create({nombreMazo,estado,UserId,ModoJuegoId});
             res.status(200).send({sucess:true , message:newMazo });
         }
         catch(error) {
@@ -18,7 +21,7 @@ class MazoController{
     getAllMazos = async (req,res) => {
         try{
             const allMazos = await Mazo.findAll({
-                attributes:["id","nombreMazo","id_user","estado","modo"]
+                attributes:["id","nombreMazo"] , include:[ModoJuego,User,Carta]
             });
             res.status(200).send({sucess:true , message:allMazos });
         }
@@ -30,7 +33,7 @@ class MazoController{
         try{
             const {id_user} = req.params;
             const allMazosByUser = await Mazo.findAll({
-                attributes:["id","nombreMazo","id_user","estado","modo"]
+                attributes:["id","nombreMazo","estado"]
             },{where: {id_user : id_user }});
             res.status(200).send({sucess:true , message:allMazosByUser });
         }
@@ -41,7 +44,7 @@ class MazoController{
     getMazoById = async (req,res) => {
         try{
             const {id} = req.params;
-            const mazoByid = await Mazo.findByPk(id)
+            const mazoByid = await Mazo.findByPk(id,{include:[Carta,ModoJuego]})
             if(!mazoByid) throw new Error("No existe el mazo con ese ID")
             res.status(200).send({sucess:true , message:mazoByid });
         }

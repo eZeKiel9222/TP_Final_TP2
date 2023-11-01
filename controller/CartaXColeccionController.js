@@ -1,13 +1,15 @@
-import {Carta} from "../Models/index.js";
+
+import {Coleccion} from "../Models/index.js";
 
 
-class CartaController{
+
+class CartaXColeccionController{
     constructor(){}
     
     createCarta = async (req,res) => {
         try{
-            const {cardName,image,cardurl} = req.body;
-            const newCarta = await Carta.create({cardName,image,cardurl});
+            const {UserId,CartaId} = req.body;
+            const newCarta = await Coleccion.create({UserId,CartaId});
             res.status(200).send({sucess:true , message:newCarta });
         }
         catch(error) {
@@ -17,8 +19,8 @@ class CartaController{
 
     getAllCartas = async (req,res) => {
         try{
-            const allCartas = await Carta.findAll({
-                attributes:["id","cardName","image","cardurl"]
+            const allCartas = await Coleccion.findAll({
+                attributes:["UserId", "CartaId"]
             });
             res.status(200).send({sucess:true , message:allCartas });
         }
@@ -26,10 +28,12 @@ class CartaController{
             res.status(400).send({sucess:false , message:error.message})
         }
     };
-    getCartaById = async (req,res) => {
+    getAllCartasByIdUser = async (req,res) => {
         try{
             const {id} = req.params;
-            const cartaByid = await Carta.findByPk(id)
+            const cartaByid = await Coleccion.findAll({
+                attributes:["UserId","CartaId"]
+            },{where: {UserId: id}})
             if(!cartaByid) throw new Error("No existe la carta con ese ID")
             res.status(200).send({sucess:true , message:cartaByid });
         }
@@ -39,10 +43,10 @@ class CartaController{
     };
     updateCarta = async (req,res) => {
         try{
-            const {cardName,image,cardurl} = req.body;
+            const {UserId,CartaId} = req.body;
             const {id} = req.params;
-            const updatedCarta = await Carta.update(
-                { cardName : cardName , image : image , cardurl: cardurl },
+            const updatedCarta = await Coleccion.update(
+                {UserId: UserId, CartaId: CartaId },
             {
               where: { id: id } 
             })
@@ -56,7 +60,7 @@ class CartaController{
     deleteCarta = async (req,res) => {
         try{
             const {id} = req.params;
-            const deletedCarta = await Carta.destroy({ where: { id: id } })
+            const deletedCarta = await Coleccion.destroy({ where: { id: id } })
             res.status(200).send({sucess:true , message:deletedCarta });
         }
         catch(error) {
@@ -67,4 +71,5 @@ class CartaController{
     
     }
     
-    export default CartaController
+    export default CartaXColeccionController
+    

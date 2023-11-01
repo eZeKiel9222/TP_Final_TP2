@@ -1,4 +1,7 @@
-import User from "../Models/User.js";
+import {Carta, Coleccion, ModoJuego} from "../Models/index.js"
+import {Mazo} from "../Models/index.js"
+import {User} from "../Models/index.js"
+
 
 class UserController {
     constructor() { }
@@ -17,7 +20,10 @@ class UserController {
     getAllUsers = async (req, res) => {
         try {
             const allUsers = await User.findAll({
-                attributes: ["id", "userLogin", "userPassword"]
+                attributes: ["id", "userLogin", "userPassword"] , include:[{model:Mazo,
+                    attributes:{
+                        exclude:['createdAt','updatedAt','UserId']
+                    }}]
             });
             res.status(200).send({ sucess: true, message: allUsers });
         }
@@ -29,7 +35,18 @@ class UserController {
     getUserById = async (req, res) => {
         try {
             const { id } = req.params;
-            const UserByid = await User.findByPk(id)
+            const UserByid = await User.findByPk(id,{ 
+                include:[{model:Mazo,
+                attributes:{
+                    exclude:['createdAt','updatedAt','UserId']
+                }},
+            {
+                model:Carta,
+                attributes:{
+                    exclude:['createdAt','updatedAt']
+                }
+            }]
+            , attributes: ['id','userLogin','userPassword']})
             if (!UserByid) throw new Error("No existe el usuario con ese ID")
             res.status(200).send({ sucess: true, message: UserByid });
         }
