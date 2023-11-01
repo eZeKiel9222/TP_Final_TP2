@@ -1,13 +1,15 @@
 import {Carta} from "../Models/index.js";
+import {CartasMazo} from "../Models/index.js";
+import {Mazo} from "../Models/index.js";
 
 
-class CartaController{
+class CartasMazoController{
     constructor(){}
     
     createCarta = async (req,res) => {
         try{
-            const {cardName,image,cardurl} = req.body;
-            const newCarta = await Carta.create({cardName,image,cardurl});
+            const {MazoId,CartaId} = req.body;
+            const newCarta = await CartasMazo.create({MazoId,CartaId});
             res.status(200).send({sucess:true , message:newCarta });
         }
         catch(error) {
@@ -15,10 +17,11 @@ class CartaController{
         }
     };
 
+    
     getAllCartas = async (req,res) => {
         try{
-            const allCartas = await Carta.findAll({
-                attributes:["id","cardName","image","cardurl"]
+            const allCartas = await CartasMazo.findAll({
+                attributes:["MazoId", "CartaId"]
             });
             res.status(200).send({sucess:true , message:allCartas });
         }
@@ -26,10 +29,12 @@ class CartaController{
             res.status(400).send({sucess:false , message:error.message})
         }
     };
-    getCartaById = async (req,res) => {
+    getAllCartasByIdMazo = async (req,res) => {
         try{
-            const {id} = req.params;
-            const cartaByid = await Carta.findByPk(id)
+            const {MazoId} = req.params;
+            const cartaByid = await CartasMazo.findAll({
+                attributes:["MazoId","CartaId"]
+            },{where: {MazoId: MazoId}})
             if(!cartaByid) throw new Error("No existe la carta con ese ID")
             res.status(200).send({sucess:true , message:cartaByid });
         }
@@ -39,10 +44,10 @@ class CartaController{
     };
     updateCarta = async (req,res) => {
         try{
-            const {cardName,image,cardurl} = req.body;
+            const {MazoId,CartaId} = req.body;
             const {id} = req.params;
-            const updatedCarta = await Carta.update(
-                { cardName : cardName , image : image , cardurl: cardurl },
+            const updatedCarta = await CartasMazo.update(
+                {MazoId: MazoId, CartaId: CartaId },
             {
               where: { id: id } 
             })
@@ -56,7 +61,7 @@ class CartaController{
     deleteCarta = async (req,res) => {
         try{
             const {id} = req.params;
-            const deletedCarta = await Carta.destroy({ where: { id: id } })
+            const deletedCarta = await CartasMazo.destroy({ where: { id: id } })
             res.status(200).send({sucess:true , message:deletedCarta });
         }
         catch(error) {
@@ -67,4 +72,4 @@ class CartaController{
     
     }
     
-    export default CartaController
+    export default CartasMazoController

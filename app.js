@@ -3,9 +3,10 @@ import router from "./routes/router.js";
 import connection from "./connection/connection.js";
 
 
+
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({extended:false}))
 app.use("/api", router);
 
  await connection.sync({force:false});

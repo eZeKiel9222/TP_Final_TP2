@@ -1,5 +1,8 @@
 import {  DataTypes, Model } from "sequelize";
 import connection from "../connection/connection.js";
+import Carta from "./Carta.js";
+import ModoJuego from "./ModoJuego.js";
+import User from "./User.js";
 
 class Mazo extends Model {}
 
@@ -10,16 +13,8 @@ Mazo.init({
         allowNull:false,
         unique:true
     },
-    id_user:{
-        type:DataTypes.INTEGER(11),
-        allowNull:false,
-    },
     estado:{
         type:DataTypes.STRING(50),
-        allowNull:false,
-    },
-    modo:{
-        type:DataTypes.INTEGER(11),
         allowNull:false,
     }
 },{
