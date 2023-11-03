@@ -1,7 +1,7 @@
 import {Carta, Coleccion, ModoJuego} from "../Models/index.js"
 import {Mazo} from "../Models/index.js"
 import {User} from "../Models/index.js"
-
+const accessToken = "XXXXXX"
 
 class UserController {
     constructor() { }
@@ -71,7 +71,25 @@ class UserController {
             res.status(400).send({ sucess: false, message: error.message })
         }
     };
+    
+    login = async (req, res) => {
+        try{
+        const {userLogin, userPassword} = req.body;
+        const user = await User.findOne({
+            attributes:["id","userLogin","userPassword",'nickName',"email"],
+            where:{userLogin: userLogin, userPassword:userPassword}})
+        if(!user) {
+            res.status(400).send({sucess:false, message:"Credenciales Incorrectas"})
+        } else {
+            const authData = {accessToken: accessToken , userInfo: user}
+            res.status(200).send({sucess:true , message: authData})
+        }
+        }
+        catch (error) {
+            res.status(400).send({ sucess: false, message: error.message })
+        }
 
+    }
     deleteUser = async (req, res) => {
         try {
             const { id } = req.params;
@@ -82,6 +100,7 @@ class UserController {
             res.status(400).send({ sucess: false, message: error.message })
         }
     };
+    
 
 }
 
