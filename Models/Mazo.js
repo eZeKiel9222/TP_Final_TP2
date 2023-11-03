@@ -14,7 +14,6 @@ Mazo.init({
         unique:true,
         validate:{
             notEmpty:{args:true, msg:'No Puede estar Vacio'},
-            isAlphanumeric:{args:true,msg:'El Nombre de Mazo tiene que ser AlfaNumerico'}
         }
     },
     estado:{

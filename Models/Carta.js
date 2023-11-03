@@ -11,7 +11,6 @@ Carta.init({
         unique:true,
         validate:{
             notEmpty:{args:true, msg:'No puede estar vacio'},
-            isAlphanumeric:{args: true, msg:'Tiene que ser Alphanumerico'},
         }
     },
     image:{

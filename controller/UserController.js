@@ -8,8 +8,8 @@ class UserController {
 
     createUser = async (req, res) => {
         try {
-            const { userLogin, userPassword } = req.body;
-            const newUser = await User.create({ userLogin, userPassword });
+            const { userLogin, userPassword,nickName,email, } = req.body;
+            const newUser = await User.create({ userLogin, userPassword,nickName,email });
             res.status(200).send({ sucess: true, message: newUser });
         }
         catch (error) {
@@ -46,7 +46,7 @@ class UserController {
                     exclude:['createdAt','updatedAt']
                 }
             }]
-            , attributes: ['id','userLogin','userPassword']})
+            , attributes: ['id','userLogin','userPassword','nickName','email']})
             if (!UserByid) throw new Error("No existe el usuario con ese ID")
             res.status(200).send({ sucess: true, message: UserByid });
         }
