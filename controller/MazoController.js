@@ -21,7 +21,17 @@ class MazoController{
     getAllMazos = async (req,res) => {
         try{
             const allMazos = await Mazo.findAll({
-                attributes:["id","nombreMazo"] , include:[ModoJuego,User,Carta]
+                attributes:["id","nombreMazo"] ,
+                 include:[
+                    {model:ModoJuego,
+                        attributes:{
+                        exclude:['createdAt','updatedAt']
+                        }},
+                    {model:User,
+                        attributes:{
+                        exclude:['createdAt','updatedAt']
+                        }},    
+                    ]
             });
             res.status(200).send({sucess:true , message:allMazos });
         }
@@ -31,10 +41,22 @@ class MazoController{
     };
     getAllMazosByUser = async (req,res) => {
         try{
-            const {id_user} = req.params;
+            const {id} = req.params;
             const allMazosByUser = await Mazo.findAll({
-                attributes:["id","nombreMazo","estado"]
-            },{where: {id_user : id_user }});
+                attributes:["id","nombreMazo","estado"],
+                where: {UserId : id },
+                include:[
+                    {model:ModoJuego,
+                    attributes:{
+                    exclude:['createdAt','updatedAt']
+                        }},
+                    {model:User,
+                    attributes:{
+                    exclude:['createdAt','updatedAt']
+                        }},
+                   
+                ]
+            });
             res.status(200).send({sucess:true , message:allMazosByUser });
         }
         catch(error) {
@@ -44,7 +66,24 @@ class MazoController{
     getMazoById = async (req,res) => {
         try{
             const {id} = req.params;
-            const mazoByid = await Mazo.findByPk(id,{include:[Carta,ModoJuego]})
+            const mazoByid = await Mazo.findAll({
+                attributes:["id","nombreMazo","estado"],
+                where:{id : id},
+                include:[
+                    {model:ModoJuego,
+                        attributes:{
+                        exclude:['createdAt','updatedAt']
+                            }},
+                        {model:User,
+                        attributes:{
+                        exclude:['createdAt','updatedAt']
+                            }},
+                        {model:Carta,
+                            attributes:{
+                            exclude:['createdAt','updatedAt']
+                        }}
+                ]
+            })
             if(!mazoByid) throw new Error("No existe el mazo con ese ID")
             res.status(200).send({sucess:true , message:mazoByid });
         }
@@ -54,10 +93,10 @@ class MazoController{
     };
     updateMazo = async (req,res) => {
         try{
-            const {nombreMazo,id_user,estado,modo} = req.body;
+            const {nombreMazo,UserId,estado,ModoJuegoId} = req.body;
             const {id} = req.params;
             const updatedMazo= await Mazo.update(
-                { nombreMazo : nombreMazo , id_user : id_user,estado:estado,modo:modo},
+                { nombreMazo : nombreMazo , UserId : UserId, estado:estado,ModoJuegoId:ModoJuegoId},
             {
               where: { id: id } 
             })

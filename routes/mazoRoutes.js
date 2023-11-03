@@ -7,6 +7,7 @@ const mazoController = new MazoController()
 //CRUD ROLES
 mazoRoutes.post("",mazoController.createMazo)
 mazoRoutes.get("",mazoController.getAllMazos)
+mazoRoutes.get("/user/:id", mazoController.getAllMazosByUser)
 mazoRoutes.get("/:id",mazoController.getMazoById)
 mazoRoutes.put("/:id",mazoController.updateMazo)
 mazoRoutes.delete("/:id",mazoController.deleteMazo)

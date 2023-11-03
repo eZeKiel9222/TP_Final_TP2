@@ -11,7 +11,6 @@ ModoJuego.init({
         allowNull:false,
         validate:{
             notEmpty:{args:true, msg:'No puede estar vacio'},
-            isAlpha:{args:true, msg:'el Estado tiene que ser un String'}
         }
     },
     image:{
