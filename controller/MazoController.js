@@ -20,7 +20,8 @@ class MazoController {
     getAllMazos = async (req, res) => {
         try {
             const allMazos = await Mazo.findAll({
-                attributes: ["id", "nombreMazo"],
+                attributes: ["id", "nombreMazo", "privado"],
+                where: { privado: false },
                 include: [
                     {
                         model: ModoJuego,
