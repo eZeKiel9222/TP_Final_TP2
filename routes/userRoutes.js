@@ -10,6 +10,6 @@ userRoutes.get("", userController.getAllUsers)
 userRoutes.get("/:id", userController.getUserById)
 userRoutes.put("/:id", userController.updateUser)
 userRoutes.delete("/:id", userController.deleteUser)
-userRoutes.post("/login",userController.login)
+userRoutes.post("/login", userController.login)
 
 export default userRoutes

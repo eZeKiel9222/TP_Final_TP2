@@ -1,88 +1,86 @@
-import {Carta} from "../Models/index.js";
-import {CartasMazo} from "../Models/index.js";
-import {Mazo} from "../Models/index.js";
+import { CartasMazo } from "../Models/index.js";
 
+class CartasMazoController {
+    constructor() { }
 
-class CartasMazoController{
-    constructor(){}
-    
-    createCarta = async (req,res) => {
-        try{
-            const {MazoId,CartaId} = req.body;
+    createCarta = async (req, res) => {
+        try {
+            const { MazoId, CartaId } = req.body;
             const [newCarta, created] = await CartasMazo.findOrCreate({
-                where: {MazoId:MazoId , CartaId:CartaId},
-                attributes:["MazoId","CartaId","amount"]
+                where: { MazoId: MazoId, CartaId: CartaId },
+                attributes: ["MazoId", "CartaId", "amount"]
             })
             if (created) {
-                res.status(201).send({ success: true, message:newCarta});
-              } else {
-                const updatedCarta = await CartasMazo.update({MazoId: MazoId, CartaId: CartaId ,amount:(newCarta.amount+1)},
+                res.status(201).send({ success: true, message: newCarta });
+            } else {
+                const updatedCarta = await CartasMazo.update({ MazoId: MazoId, CartaId: CartaId, amount: (newCarta.amount + 1) },
                     {
-                      where: {MazoId:MazoId,CartaId:CartaId} 
+                        where: { MazoId: MazoId, CartaId: CartaId }
                     })
-                    const carta = await CartasMazo.findOne({where:{MazoId:MazoId , CartaId:CartaId} , attributes:["MazoId","CartaId","amount"]})
-                res.status(200).send({ success: true, message:carta });
-              }
+                const carta = await CartasMazo.findOne({ where: { MazoId: MazoId, CartaId: CartaId }, attributes: ["MazoId", "CartaId", "amount"] })
+                res.status(200).send({ success: true, message: carta });
+            }
         }
 
-        catch(error) {
-            res.status(400).send({sucess:false , message:error.message})
+        catch (error) {
+            res.status(400).send({ sucess: false, message: error.message })
         }
     };
 
-    
-    getAllCartas = async (req,res) => {
-        try{
+    getAllCartas = async (req, res) => {
+        try {
             const allCartas = await CartasMazo.findAll({
-                attributes:["MazoId", "CartaId","amount"]
+                attributes: ["MazoId", "CartaId", "amount"]
             });
-            res.status(200).send({sucess:true , message:allCartas });
+            res.status(200).send({ sucess: true, message: allCartas });
         }
-        catch(error) {
-            res.status(400).send({sucess:false , message:error.message})
+        catch (error) {
+            res.status(400).send({ sucess: false, message: error.message })
         }
     };
-    getAllCartasByIdMazo = async (req,res) => {
-        try{
-            const {MazoId} = req.params;
+
+    getAllCartasByIdMazo = async (req, res) => {
+        try {
+            const { MazoId } = req.params;
             const cartaByid = await CartasMazo.findAll({
-                attributes:["MazoId","CartaId"]
-            },{where: {MazoId: MazoId}})
-            if(!cartaByid) throw new Error("No existe la carta con ese ID")
-            res.status(200).send({sucess:true , message:cartaByid });
+                attributes: ["MazoId", "CartaId"]
+            }, { where: { MazoId: MazoId } })
+            if (!cartaByid) throw new Error("No existe la carta con ese ID")
+            res.status(200).send({ sucess: true, message: cartaByid });
         }
-        catch(error) {
-            res.status(400).send({sucess:false , message:error.message})
+        catch (error) {
+            res.status(400).send({ sucess: false, message: error.message })
         }
     };
-    updateCarta = async (req,res) => {
-        try{
-            const {MazoId,CartaId} = req.body;
-            const {id} = req.params;
+
+    updateCarta = async (req, res) => {
+        try {
+            const { MazoId, CartaId } = req.body;
+            const { id } = req.params;
             const updatedCarta = await CartasMazo.update(
-                {MazoId: MazoId, CartaId: CartaId },
-            {
-              where: { id: id } 
-            })
-            if(!updatedCarta) throw new Error ("No se pudo updatear la carta con ese ID")
-            res.status(200).send({sucess:true , message:updatedCarta })
+                { MazoId: MazoId, CartaId: CartaId },
+                {
+                    where: { id: id }
+                })
+            if (!updatedCarta) throw new Error("No se pudo updatear la carta con ese ID")
+            res.status(200).send({ sucess: true, message: updatedCarta })
         }
-        catch(error) {
-            res.status(400).send({sucess:false , message:error.message})
+        catch (error) {
+            res.status(400).send({ sucess: false, message: error.message })
         }
     };
-    deleteCarta = async (req,res) => {
-        try{
-            const {id} = req.params;
+
+    deleteCarta = async (req, res) => {
+        try {
+            const { id } = req.params;
             const deletedCarta = await CartasMazo.destroy({ where: { id: id } })
-            res.status(200).send({sucess:true , message:deletedCarta });
+            res.status(200).send({ sucess: true, message: deletedCarta });
         }
-        catch(error) {
-            res.status(400).send({sucess:false , message:error.message})
+        catch (error) {
+            res.status(400).send({ sucess: false, message: error.message })
         }
     };
-    
-    
-    }
-    
-    export default CartasMazoController
+
+}
+
+export default CartasMazoController

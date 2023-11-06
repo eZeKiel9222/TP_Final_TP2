@@ -1,31 +1,27 @@
-import {  DataTypes, Model } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import connection from "../connection/connection.js";
-import Carta from "./Carta.js";
-import ModoJuego from "./ModoJuego.js";
-import User from "./User.js";
+import { ErrorMessage } from "../helper/ErrorMessage.js";
 
-class Mazo extends Model {}
-
+class Mazo extends Model { }
 
 Mazo.init({
-    nombreMazo:{
-        type:DataTypes.STRING(50),
-        allowNull:false,
-        unique:true,
-        validate:{
-            notEmpty:{args:true, msg:'No Puede estar Vacio'},
+    nombreMazo: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        unique: true,
+        validate: {
+            notEmpty: { args: true, msg: ErrorMessage.EMPTY_FIELD },
         }
     },
-    estado:{
-        type:DataTypes.STRING(50),
-        allowNull:false,
-        validate:{
-            notEmpty:{args:true, msg:'No Puede estar Vacio'},
-            isAlpha:{args:true, msg:'el Estado tiene que ser un String'},
-            isIn:{args: [['Publico', 'Privado']] , msg:'el estado Solo puede ser Publico o Privado'}
+    privado: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        validate: {
+            notNull: { args: true, msg: ErrorMessage.NOT_NULL },
+            isIn: { args: [[true, false]], msg: ErrorMessage.NOT_BOOLEAN }
         }
     }
-},{
+}, {
     sequelize: connection,
     modelName: "Mazo",
 })

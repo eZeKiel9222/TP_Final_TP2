@@ -5,12 +5,10 @@ const cartaxmazoRoutes = Router()
 const cartaxmazoController = new CartaXColeccionController
 
 //CRUD ROLES
-cartaxmazoRoutes.post("",cartaxmazoController.createCarta)
-cartaxmazoRoutes.get("",cartaxmazoController.getAllCartas)
-cartaxmazoRoutes.get("/:id",cartaxmazoController.getAllCartasByIdUser)
-cartaxmazoRoutes.put("/:id",cartaxmazoController.updateCarta)
-cartaxmazoRoutes.delete("/:id",cartaxmazoController.deleteCarta)
-
-
+cartaxmazoRoutes.post("", cartaxmazoController.createCarta)
+cartaxmazoRoutes.get("", cartaxmazoController.getAllCartas)
+cartaxmazoRoutes.get("/:id", cartaxmazoController.getAllCartasByIdUser)
+cartaxmazoRoutes.put("/:id", cartaxmazoController.updateCarta)
+cartaxmazoRoutes.delete("/:id", cartaxmazoController.deleteCarta)
 
 export default cartaxmazoRoutes

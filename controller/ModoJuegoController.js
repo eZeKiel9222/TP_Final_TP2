@@ -1,71 +1,72 @@
-import {ModoJuego} from "../Models/index.js"
+import { ModoJuego } from "../Models/index.js"
 
+class ModoJuegoController {
+    constructor() { }
 
-class ModoJuegoController{
-    constructor(){}
-    
-    createModo = async (req,res) => {
-        try{
-            const {nombreModo , image} = req.body;
-            const newModo = await ModoJuego.create({nombreModo,image});
-            res.status(200).send({sucess:true , message:newModo });
+    createModo = async (req, res) => {
+        try {
+            const { nombreModo, image } = req.body;
+            const newModo = await ModoJuego.create({ nombreModo, image });
+            res.status(200).send({ sucess: true, message: newModo });
         }
-        catch(error) {
-            res.status(400).send({sucess:false , message:error.message})
+        catch (error) {
+            res.status(400).send({ sucess: false, message: error.message })
         }
     };
 
-    getAllModos = async (req,res) => {
-        try{
+    getAllModos = async (req, res) => {
+        try {
             const allModos = await ModoJuego.findAll({
-                attributes:["id","nombreModo","image"]
+                attributes: ["id", "nombreModo", "image"]
             });
-            res.status(200).send({sucess:true , message:allModos });
+            res.status(200).send({ sucess: true, message: allModos });
         }
-        catch(error) {
-            res.status(400).send({sucess:false , message:error.message})
+        catch (error) {
+            res.status(400).send({ sucess: false, message: error.message })
         }
     };
-    getModoById = async (req,res) => {
-        try{
-            const {id} = req.params;
+
+    getModoById = async (req, res) => {
+        try {
+            const { id } = req.params;
             const modoByid = await ModoJuego.findByPk(id)
-            if(!modoByid) throw new Error("No existe el modo con ese ID")
-            res.status(200).send({sucess:true , message:modoByid });
+            if (!modoByid) throw new Error("No existe el modo con ese ID")
+            res.status(200).send({ sucess: true, message: modoByid });
         }
-        catch(error) {
-            res.status(400).send({sucess:false , message:error.message})
+        catch (error) {
+            res.status(400).send({ sucess: false, message: error.message })
         }
     };
-    updateModo = async (req,res) => {
-        try{
-            const {nombreModo} = req.body;
-            const {image} = req.body;
-            const {id} = req.params;
+
+    updateModo = async (req, res) => {
+        try {
+            const { nombreModo } = req.body;
+            const { image } = req.body;
+            const { id } = req.params;
             const updatedModo = await ModoJuego.update(
-                { nombreModo : nombreModo , image : image},
-            {
-              where: { id: id } 
-            })
-            if(!updatedModo) throw new Error ("No se pudo updater el rol con ese ID")
-            res.status(200).send({sucess:true , message:updatedModo })
+                { nombreModo: nombreModo, image: image },
+                {
+                    where: { id: id }
+                })
+            if (!updatedModo) throw new Error("No se pudo updater el rol con ese ID")
+            res.status(200).send({ sucess: true, message: updatedModo })
         }
-        catch(error) {
-            res.status(400).send({sucess:false , message:error.message})
+        catch (error) {
+            res.status(400).send({ sucess: false, message: error.message })
         }
     };
-    deleteModo = async (req,res) => {
-        try{
-            const {id} = req.params;
+
+    deleteModo = async (req, res) => {
+        try {
+            const { id } = req.params;
             const deletedModo = await ModoJuego.destroy({ where: { id: id } })
-            res.status(200).send({sucess:true , message:deletedRole });
+            res.status(200).send({ sucess: true, message: deletedRole });
         }
-        catch(error) {
-            res.status(400).send({sucess:false , message:error.message})
+        catch (error) {
+            res.status(400).send({ sucess: false, message: error.message })
         }
     };
-    
-    
-    }
-    
-    export default ModoJuegoController
+
+}
+
+export default ModoJuegoController
