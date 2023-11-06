@@ -6,17 +6,13 @@ import CartasMazo from "./CartasMazo.js";
 import Coleccion from "./Coleccion.js";
 import Role from "./Role.js";
 
-
 User.hasMany(Mazo)
 Mazo.belongsTo(User)
-Mazo.belongsToMany(Carta , {through: CartasMazo , foreignKey:'MazoId' , uniqueKey:false});
-Carta.belongsToMany(Mazo, {through: CartasMazo, foreignKey: 'CartaId',uniqueKey: false});
+Mazo.belongsToMany(Carta, { through: CartasMazo, foreignKey: 'MazoId', uniqueKey: false });
+Carta.belongsToMany(Mazo, { through: CartasMazo, foreignKey: 'CartaId', uniqueKey: false });
 Mazo.belongsTo(ModoJuego);
 ModoJuego.hasMany(Mazo)
-User.belongsToMany(Carta,{through: Coleccion , foreignKey: 'UserId',uniqueKey:false})
-Carta.belongsToMany(User,{through: Coleccion, foreignKey: 'CartaId',uniqueKey:false})
+User.belongsToMany(Carta, { through: Coleccion, foreignKey: 'UserId', uniqueKey: false })
+Carta.belongsToMany(User, { through: Coleccion, foreignKey: 'CartaId', uniqueKey: false })
 
-
-
-
-export {User,Mazo,Carta,ModoJuego,CartasMazo, Coleccion,Role}
+export { User, Mazo, Carta, ModoJuego, CartasMazo, Coleccion, Role }

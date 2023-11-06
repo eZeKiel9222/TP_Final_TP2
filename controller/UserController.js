@@ -1,6 +1,5 @@
-import {Carta, Coleccion, ModoJuego} from "../Models/index.js"
-import {Mazo} from "../Models/index.js"
-import {User} from "../Models/index.js"
+import { Carta, Mazo, User } from "../Models/index.js"
+
 const accessToken = "XXXXXX"
 
 class UserController {
@@ -8,8 +7,8 @@ class UserController {
 
     createUser = async (req, res) => {
         try {
-            const { userLogin, userPassword,nickName,email, } = req.body;
-            const newUser = await User.create({ userLogin, userPassword,nickName,email });
+            const { userLogin, userPassword, nickName, email } = req.body;
+            const newUser = await User.create({ userLogin, userPassword, nickName, email });
             res.status(200).send({ sucess: true, message: newUser });
         }
         catch (error) {
@@ -20,10 +19,12 @@ class UserController {
     getAllUsers = async (req, res) => {
         try {
             const allUsers = await User.findAll({
-                attributes: ["id", "userLogin", "userPassword","nickName","email"] , include:[{model:Mazo,
-                    attributes:{
-                        exclude:['createdAt','updatedAt','UserId']
-                    }}]
+                attributes: ["id", "userLogin", "userPassword", "nickName", "email"], include: [{
+                    model: Mazo,
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt', 'UserId']
+                    }
+                }]
             });
             res.status(200).send({ sucess: true, message: allUsers });
         }
@@ -35,18 +36,21 @@ class UserController {
     getUserById = async (req, res) => {
         try {
             const { id } = req.params;
-            const UserByid = await User.findByPk(id,{ 
-                include:[{model:Mazo,
-                attributes:{
-                    exclude:['createdAt','updatedAt','UserId']
-                }},
-            {
-                model:Carta,
-                attributes:{
-                    exclude:['createdAt','updatedAt']
-                }
-            }]
-            , attributes: ['id','userLogin','userPassword','nickName','email']})
+            const UserByid = await User.findByPk(id, {
+                include: [{
+                    model: Mazo,
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt', 'UserId']
+                    }
+                },
+                {
+                    model: Carta,
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt']
+                    }
+                }]
+                , attributes: ['id', 'userLogin', 'userPassword', 'nickName', 'email']
+            })
             if (!UserByid) throw new Error("No existe el usuario con ese ID")
             res.status(200).send({ sucess: true, message: UserByid });
         }
@@ -64,26 +68,27 @@ class UserController {
                 {
                     where: { id: id }
                 })
-            if (!updatedUser) throw new Error("No se pudo updater el rol con ese ID")
+            if (!updatedUser) throw new Error("No se pudo modificar rol con ese ID")
             res.status(200).send({ sucess: true, message: updatedUser });
         }
         catch (error) {
             res.status(400).send({ sucess: false, message: error.message })
         }
     };
-    
+
     login = async (req, res) => {
-        try{
-        const {userLogin, userPassword} = req.body;
-        const user = await User.findOne({
-            attributes:["id","userLogin","userPassword",'nickName',"email"],
-            where:{userLogin: userLogin, userPassword:userPassword}})
-        if(!user) {
-            res.status(400).send({sucess:false, message:"Credenciales Incorrectas"})
-        } else {
-            const authData = {accessToken: accessToken , userInfo: user}
-            res.status(200).send({sucess:true , message: authData})
-        }
+        try {
+            const { userLogin, userPassword } = req.body;
+            const user = await User.findOne({
+                attributes: ["id", "userLogin", "userPassword", 'nickName', "email"],
+                where: { userLogin: userLogin, userPassword: userPassword }
+            })
+            if (!user) {
+                res.status(400).send({ sucess: false, message: "Credenciales Incorrectas" })
+            } else {
+                const authData = { accessToken: accessToken, userInfo: user }
+                res.status(200).send({ sucess: true, message: authData })
+            }
         }
         catch (error) {
             res.status(400).send({ sucess: false, message: error.message })
@@ -100,7 +105,6 @@ class UserController {
             res.status(400).send({ sucess: false, message: error.message })
         }
     };
-    
 
 }
 

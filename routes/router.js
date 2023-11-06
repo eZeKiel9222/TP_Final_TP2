@@ -8,18 +8,15 @@ import cartasmazoRoutes from "./cartasMazoRoutes.js";
 import cartaxmazoRoutes from "./cartaxColeccionRoutes.js";
 import searchRoutes from "./searchRoutes.js";
 
-
-
 const router = Router();
 
-
 router.use("/role", roleRoutes);
-router.use("/user",userRoutes);
-router.use("/modo",modoRoutes);
-router.use("/carta",cartaRoutes);
-router.use("/mazo",mazoRoutes);
+router.use("/user", userRoutes);
+router.use("/modo", modoRoutes);
+router.use("/carta", cartaRoutes);
+router.use("/mazo", mazoRoutes);
 router.use("/cartasmazo", cartasmazoRoutes);
 router.use("/coleccion", cartaxmazoRoutes);
-router.use("/search",searchRoutes)
+router.use("/search", searchRoutes)
 
 export default router

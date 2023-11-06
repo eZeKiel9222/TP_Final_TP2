@@ -1,8 +1,8 @@
 import { DataTypes, Model } from "sequelize";
 import connection from "../connection/connection.js";
-import Mazo from "./Mazo.js";
+import { ErrorMessage } from "../helper/ErrorMessage.js";
 
-class User extends Model {}
+class User extends Model { }
 
 User.init(
   {
@@ -11,31 +11,31 @@ User.init(
       allowNull: false,
       unique: true,
       validate: {
-        notEmpty: { args: true, msg: "No puede estar vacio" },
-        isAlphanumeric: { args: true, msg: "el Login tiene que ser Alphanumerico" },
+        notEmpty: { args: true, msg: ErrorMessage.EMPTY_FIELD },
+        isAlphanumeric: { args: true, msg: ErrorMessage.NOT_ALPHANUMERIC },
       },
     },
     userPassword: {
       type: DataTypes.STRING(50),
       allowNull: false,
       validate: {
-        notEmpty: { args: true, msg: "No puede estar vacio" },
+        notEmpty: { args: true, msg: ErrorMessage.EMPTY_FIELD },
       },
     },
     nickName: {
       type: DataTypes.STRING(50),
       allowNull: false,
-      unique:true,
+      unique: true,
       validate: {
-        notEmpty: { args: true, msg: "No puede estar vacio" },
+        notEmpty: { args: true, msg: ErrorMessage.EMPTY_FIELD },
       },
     },
     email: {
       type: DataTypes.STRING(50),
       allowNull: false,
       validate: {
-        notEmpty: { args: true, msg: "No puede estar vacio" },
-        isEmail: { args: true, msg: "Tiene que tener formato de email" },
+        notEmpty: { args: true, msg: ErrorMessage.EMPTY_FIELD },
+        isEmail: { args: true, msg: ErrorMessage.NOT_EMAIL },
       },
     },
   },
