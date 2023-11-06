@@ -31,7 +31,7 @@ class MazoController {
                     {
                         model: User,
                         attributes: {
-                            exclude: ['createdAt', 'updatedAt']
+                            exclude: ['createdAt', 'updatedAt', 'userLogin', 'userPassword']
                         }
                     },
                 ]
@@ -59,7 +59,7 @@ class MazoController {
                     {
                         model: User,
                         attributes: {
-                            exclude: ['createdAt', 'updatedAt']
+                            exclude: ['createdAt', 'updatedAt', 'userLogin', 'userPassword']
                         }
                     },
 
@@ -88,7 +88,7 @@ class MazoController {
                     {
                         model: User,
                         attributes: {
-                            exclude: ['createdAt', 'updatedAt']
+                            exclude: ['createdAt', 'updatedAt', 'userLogin', 'userPassword']
                         }
                     },
                     {

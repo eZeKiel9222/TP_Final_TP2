@@ -21,7 +21,7 @@ Carta.init({
             isUrl: { args: true, msg: ErrorMessage.NOT_URL }
         }
     },
-    cardurl: {
+    cardUrl: {
         type: DataTypes.STRING(50),
         allowNull: false,
         validate: {

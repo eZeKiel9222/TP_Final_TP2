@@ -60,7 +60,7 @@ class ModoJuegoController {
         try {
             const { id } = req.params;
             const deletedModo = await ModoJuego.destroy({ where: { id: id } })
-            res.status(200).send({ sucess: true, message: deletedRole });
+            res.status(200).send({ sucess: true, message: deletedModo });
         }
         catch (error) {
             res.status(400).send({ sucess: false, message: error.message })

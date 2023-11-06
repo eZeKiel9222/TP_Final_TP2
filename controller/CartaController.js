@@ -5,8 +5,8 @@ class CartaController {
 
     createCarta = async (req, res) => {
         try {
-            const { cardName, image, cardurl } = req.body;
-            const newCarta = await Carta.create({ cardName, image, cardurl });
+            const { cardName, image, cardUrl } = req.body;
+            const newCarta = await Carta.create({ cardName, image, cardUrl });
             res.status(200).send({ sucess: true, message: newCarta });
         }
         catch (error) {
@@ -17,7 +17,7 @@ class CartaController {
     getAllCartas = async (req, res) => {
         try {
             const allCartas = await Carta.findAll({
-                attributes: ["id", "cardName", "image", "cardurl"]
+                attributes: ["id", "cardName", "image", "cardUrl"]
             });
             res.status(200).send({ sucess: true, message: allCartas });
         }
@@ -40,10 +40,10 @@ class CartaController {
 
     updateCarta = async (req, res) => {
         try {
-            const { cardName, image, cardurl } = req.body;
+            const { cardName, image, cardUrl } = req.body;
             const { id } = req.params;
             const updatedCarta = await Carta.update(
-                { cardName: cardName, image: image, cardurl: cardurl },
+                { cardName: cardName, image: image, cardUrl: cardUrl },
                 {
                     where: { id: id }
                 })
