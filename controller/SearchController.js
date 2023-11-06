@@ -7,8 +7,8 @@ class SearchController {
         try {
             const { id } = req.params;
             const allMazosByModo = await Mazo.findAll({
-                attributes: ["id", "nombreMazo", "estado"],
-                where: { ModoJuegoId: id, estado: "Publico" },
+                attributes: ["id", "nombreMazo", "privado"],
+                where: { ModoJuegoId: id, privado: false },
                 include: [
                     {
                         model: ModoJuego,
@@ -39,8 +39,8 @@ class SearchController {
             })
             if (user) {
                 const allMazosByModo = await Mazo.findAll({
-                    attributes: ["id", "nombreMazo", "estado"],
-                    where: { UserId: user.id, estado: "Publico" },
+                    attributes: ["id", "nombreMazo", "privado"],
+                    where: { UserId: user.id, privado: false },
                     include: [
                         {
                             model: ModoJuego,
@@ -70,8 +70,8 @@ class SearchController {
         try {
             const { id } = req.params;
             const allMazosByModo = await Mazo.findAll({
-                attributes: ["id", "nombreMazo", "estado"],
-                where: { nombreMazo: id, estado: "Publico" },
+                attributes: ["id", "nombreMazo", "privado"],
+                where: { nombreMazo: id, privado: false },
                 include: [
                     {
                         model: ModoJuego,

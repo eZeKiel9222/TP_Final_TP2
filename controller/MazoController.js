@@ -8,8 +8,8 @@ class MazoController {
 
     createMazo = async (req, res) => {
         try {
-            const { nombreMazo, UserId, ModoJuegoId, estado, } = req.body;
-            const newMazo = await Mazo.create({ nombreMazo, estado, UserId, ModoJuegoId });
+            const { nombreMazo, UserId, ModoJuegoId, privado, } = req.body;
+            const newMazo = await Mazo.create({ nombreMazo, privado, UserId, ModoJuegoId });
             res.status(200).send({ sucess: true, message: newMazo });
         }
         catch (error) {
@@ -47,7 +47,7 @@ class MazoController {
         try {
             const { id } = req.params;
             const allMazosByUser = await Mazo.findAll({
-                attributes: ["id", "nombreMazo", "estado"],
+                attributes: ["id", "nombreMazo", "privado"],
                 where: { UserId: id },
                 include: [
                     {
@@ -76,7 +76,7 @@ class MazoController {
         try {
             const { id } = req.params;
             const mazoByid = await Mazo.findAll({
-                attributes: ["id", "nombreMazo", "estado"],
+                attributes: ["id", "nombreMazo", "privado"],
                 where: { id: id },
                 include: [
                     {
@@ -109,10 +109,10 @@ class MazoController {
 
     updateMazo = async (req, res) => {
         try {
-            const { nombreMazo, UserId, estado, ModoJuegoId } = req.body;
+            const { nombreMazo, UserId, privado, ModoJuegoId } = req.body;
             const { id } = req.params;
             const updatedMazo = await Mazo.update(
-                { nombreMazo: nombreMazo, UserId: UserId, estado: estado, ModoJuegoId: ModoJuegoId },
+                { nombreMazo: nombreMazo, UserId: UserId, privado: privado, ModoJuegoId: ModoJuegoId },
                 {
                     where: { id: id }
                 })
