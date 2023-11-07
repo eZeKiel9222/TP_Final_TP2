@@ -3,7 +3,7 @@ const NOT_NULL = 'El campo no puede ser nulo'
 const NOT_BOOLEAN = 'El campo debe ser un booleano'
 const NOT_URL = 'Tiene que ser una Url de Imagen'
 const NOT_INT = 'El valor del campo debe ser un entero'
-const NOT_STRING = 'El valor del campo debe texto'
+const NOT_STRING = 'El valor del campo debe ser texto'
 const NOT_ALPHANUMERIC = 'El valor del campo debe ser alfanumerico'
 const NOT_EMAIL = 'El email no es valido'
 
