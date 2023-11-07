@@ -19,7 +19,7 @@ class SearchController {
                     {
                         model: User,
                         attributes: {
-                            exclude: ['createdAt', 'updatedAt',]
+                            exclude: ['createdAt', 'updatedAt', 'userLogin', 'userPassword']
                         }
                     },
                 ]
@@ -35,7 +35,7 @@ class SearchController {
         try {
             const { id } = req.params;
             const user = await User.findOne({
-                where: { nickName: id }
+                where: { nickName: id, privado: false }
             })
             if (user) {
                 const allMazosByModo = await Mazo.findAll({
@@ -51,7 +51,7 @@ class SearchController {
                         {
                             model: User,
                             attributes: {
-                                exclude: ['createdAt', 'updatedAt',]
+                                exclude: ['createdAt', 'updatedAt', 'userLogin', 'userPassword']
                             }
                         },
                     ]
@@ -82,7 +82,7 @@ class SearchController {
                     {
                         model: User,
                         attributes: {
-                            exclude: ['createdAt', 'updatedAt',]
+                            exclude: ['createdAt', 'updatedAt', 'userLogin', 'userPassword']
                         }
                     },
                 ]
