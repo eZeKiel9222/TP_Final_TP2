@@ -14,7 +14,7 @@ Carta.init({
         }
     },
     image: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING(),
         allowNull: false,
         validate: {
             notEmpty: { args: true, msg: ErrorMessage.EMPTY_FIELD },
@@ -22,7 +22,7 @@ Carta.init({
         }
     },
     cardUrl: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING(),
         allowNull: false,
         validate: {
             notEmpty: { args: true, msg: ErrorMessage.EMPTY_FIELD },

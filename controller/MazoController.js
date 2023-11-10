@@ -124,6 +124,21 @@ class MazoController {
             res.status(400).send({ sucess: false, message: error.message })
         }
     };
+    updateEstado = async (req, res) => {
+        try {
+            const { privado , id} = req.body;
+            const updatedMazo = await Mazo.update(
+                { privado: privado},
+                {
+                    where: { id: id }
+                })
+            if (!updatedMazo) throw new Error("No se pudo modificar el mazo con ese ID")
+            res.status(200).send({ sucess: true, message: updatedMazo })
+        }
+        catch (error) {
+            res.status(400).send({ sucess: false, message: error.message })
+        }
+    };
 
     deleteMazo = async (req, res) => {
         try {

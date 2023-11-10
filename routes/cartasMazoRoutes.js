@@ -9,6 +9,6 @@ cartasmazoRoutes.post("", cartasmazoController.createCarta)
 cartasmazoRoutes.get("", cartasmazoController.getAllCartas)
 cartasmazoRoutes.get("/:id", cartasmazoController.getAllCartasByIdMazo)
 cartasmazoRoutes.put("/:id", cartasmazoController.updateCarta)
-cartasmazoRoutes.delete("/:id", cartasmazoController.deleteCarta)
+cartasmazoRoutes.delete("", cartasmazoController.deleteCarta)
 
 export default cartasmazoRoutes

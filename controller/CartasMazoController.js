@@ -72,8 +72,8 @@ class CartasMazoController {
 
     deleteCarta = async (req, res) => {
         try {
-            const { id } = req.params;
-            const deletedCarta = await CartasMazo.destroy({ where: { id: id } })
+            const { MazoId , CartaId } = req.body;
+            const deletedCarta = await CartasMazo.destroy({ where: { MazoId: MazoId , CartaId:CartaId} })
             res.status(200).send({ sucess: true, message: deletedCarta });
         }
         catch (error) {

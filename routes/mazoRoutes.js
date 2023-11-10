@@ -10,6 +10,7 @@ mazoRoutes.get("", mazoController.getAllMazos)
 mazoRoutes.get("/user/:id", mazoController.getAllMazosByUser)
 mazoRoutes.get("/:id", mazoController.getMazoById)
 mazoRoutes.put("/:id", mazoController.updateMazo)
+mazoRoutes.put("/estado/:id", mazoController.updateEstado)
 mazoRoutes.delete("/:id", mazoController.deleteMazo)
 
 export default mazoRoutes
