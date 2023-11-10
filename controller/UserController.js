@@ -16,6 +16,7 @@ class UserController {
         }
     };
 
+    
     getAllUsers = async (req, res) => {
         try {
             const allUsers = await User.findAll({
@@ -80,7 +81,7 @@ class UserController {
         try {
             const { userLogin, userPassword } = req.body;
             const user = await User.findOne({
-                attributes: ["id", "userLogin", "userPassword", 'nickName', "email"],
+                attributes: ["id", 'nickName', "email"],
                 where: { userLogin: userLogin, userPassword: userPassword }
             })
             if (!user) {
