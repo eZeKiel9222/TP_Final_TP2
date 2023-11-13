@@ -9,7 +9,7 @@ class UserController {
         try {
             const { userLogin, userPassword, nickName, email } = req.body;
             const newUser = await User.create({ userLogin, userPassword, nickName, email });
-            res.status(200).send({ sucess: true, message: newUser });
+            res.status(200).send({ sucess: true, message: 'Usuario Creado Exitosamente' });
         }
         catch (error) {
             res.status(400).send({ sucess: false, message: error.message })
@@ -82,13 +82,23 @@ class UserController {
             const { userLogin, userPassword } = req.body;
             const user = await User.findOne({
                 attributes: ["id", 'nickName', "email"],
-                where: { userLogin: userLogin, userPassword: userPassword }
+                where: { userLogin: userLogin}
             })
             if (!user) {
-                res.status(400).send({ sucess: false, message: "Credenciales Incorrectas" })
+                res.status(400).send({ sucess: false, message: "Usuario No Existe" })
             } else {
+                const validate = await user.validatePassword(userPassword)
+                if(validate){
+                const payload = {
+                    id: user.id,
+                    nickName: user.nickName,
+                    email: user.email
+                }
                 const authData = { accessToken: accessToken, userInfo: user }
                 res.status(200).send({ sucess: true, message: authData })
+                }else {
+                    res.status(400).send({ sucess: false, message: "Password incorrecta" })
+                }
             }
         }
         catch (error) {

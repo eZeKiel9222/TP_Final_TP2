@@ -6,9 +6,13 @@ class SearchController {
     getMazosByModo = async (req, res) => {
         try {
             const { id } = req.params;
+            const modo = await ModoJuego.findOne({
+                where: { nombreModo: id}
+            })
+            if(modo){
             const allMazosByModo = await Mazo.findAll({
                 attributes: ["id", "nombreMazo", "privado"],
-                where: { ModoJuegoId: id, privado: false },
+                where: { ModoJuegoId: modo.id , privado: false },
                 include: [
                     {
                         model: ModoJuego,
@@ -25,7 +29,10 @@ class SearchController {
                 ]
             });
             res.status(200).send({ sucess: true, message: allMazosByModo });
+        }else {
+            res.status(400).send({ success: false, message: "El Modo de Juego no existe" })
         }
+    }
         catch (error) {
             res.status(400).send({ sucess: false, message: error.message })
         }
@@ -35,7 +42,7 @@ class SearchController {
         try {
             const { id } = req.params;
             const user = await User.findOne({
-                where: { nickName: id, privado: false }
+                where: { nickName: id}
             })
             if (user) {
                 const allMazosByModo = await Mazo.findAll({
