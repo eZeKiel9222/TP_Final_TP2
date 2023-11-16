@@ -6,7 +6,10 @@ class CartaController {
     createCarta = async (req, res) => {
         try {
             const { cardName, image, cardUrl } = req.body;
-            const newCarta = await Carta.create({ cardName, image, cardUrl });
+            const [newCarta, created] = await Carta.findOrCreate({
+                where:{cardName:cardName , image:image, cardUrl:cardUrl},
+                attributes:["id","cardName","image","cardUrl"]
+            });
             res.status(200).send({ sucess: true, message: newCarta });
         }
         catch (error) {

@@ -59,8 +59,8 @@ class CartaXColeccionController {
 
     deleteCarta = async (req, res) => {
         try {
-            const { id } = req.params;
-            const deletedCarta = await Coleccion.destroy({ where: { id: id } })
+            const { UserId,CartaId } = req.body;
+            const deletedCarta = await Coleccion.destroy({ where: {UserId:UserId,CartaId:CartaId } })
             res.status(200).send({ sucess: true, message: deletedCarta });
         }
         catch (error) {

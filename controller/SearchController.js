@@ -1,14 +1,17 @@
+import { Sequelize } from "sequelize";
 import { Mazo, ModoJuego, User } from "../Models/index.js"
-
+const { Op } = Sequelize
 class SearchController {
     constructor() { }
 
     getMazosByModo = async (req, res) => {
         try {
             const { id } = req.params;
+            const modo = await ModoJuego.findOne({where: {id : id}})
+            if(modo){
             const allMazosByModo = await Mazo.findAll({
                 attributes: ["id", "nombreMazo", "privado"],
-                where: { ModoJuegoId: id, privado: false },
+                where: { ModoJuegoId: modo.id, privado: false },
                 include: [
                     {
                         model: ModoJuego,
@@ -25,7 +28,9 @@ class SearchController {
                 ]
             });
             res.status(200).send({ sucess: true, message: allMazosByModo });
-        }
+        }else{
+            res.status(400).send({ sucess: false, message: 'Modo de Juego Inexistente' });
+        }}
         catch (error) {
             res.status(400).send({ sucess: false, message: error.message })
         }
@@ -35,7 +40,7 @@ class SearchController {
         try {
             const { id } = req.params;
             const user = await User.findOne({
-                where: { nickName: id, privado: false }
+                where: { nickName:id}
             })
             if (user) {
                 const allMazosByModo = await Mazo.findAll({
