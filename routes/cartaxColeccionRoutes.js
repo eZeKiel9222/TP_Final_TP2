@@ -9,6 +9,6 @@ cartaxmazoRoutes.post("", cartaxmazoController.createCarta)
 cartaxmazoRoutes.get("", cartaxmazoController.getAllCartas)
 cartaxmazoRoutes.get("/:id", cartaxmazoController.getAllCartasByIdUser)
 cartaxmazoRoutes.put("/:id", cartaxmazoController.updateCarta)
-cartaxmazoRoutes.delete("/:id", cartaxmazoController.deleteCarta)
+cartaxmazoRoutes.delete("", cartaxmazoController.deleteCarta)
 
 export default cartaxmazoRoutes

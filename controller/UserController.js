@@ -94,7 +94,6 @@ class UserController {
         catch (error) {
             res.status(400).send({ sucess: false, message: error.message })
         }
-
     }
     deleteUser = async (req, res) => {
         try {
