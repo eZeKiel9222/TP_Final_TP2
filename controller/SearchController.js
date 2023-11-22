@@ -27,12 +27,12 @@ class SearchController {
                     },
                 ]
             });
-            res.status(200).send({ sucess: true, message: allMazosByModo });
+            res.status(200).send({ success: true, message: allMazosByModo });
         }else{
-            res.status(400).send({ sucess: false, message: 'Modo de Juego Inexistente' });
+            res.status(400).send({ success: false, message: 'Modo de Juego Inexistente' });
         }}
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -61,13 +61,13 @@ class SearchController {
                         },
                     ]
                 });
-                res.status(200).send({ sucess: true, message: allMazosByModo });
+                res.status(200).send({ success: true, message: allMazosByModo });
             } else {
                 res.status(400).send({ success: false, message: "el nickname no existe" })
             }
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -92,10 +92,10 @@ class SearchController {
                     },
                 ]
             });
-            res.status(200).send({ sucess: true, message: allMazosByModo });
+            res.status(200).send({ success: true, message: allMazosByModo });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 }

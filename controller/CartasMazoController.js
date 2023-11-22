@@ -23,7 +23,7 @@ class CartasMazoController {
         }
 
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -32,10 +32,10 @@ class CartasMazoController {
             const allCartas = await CartasMazo.findAll({
                 attributes: ["MazoId", "CartaId", "amount"]
             });
-            res.status(200).send({ sucess: true, message: allCartas });
+            res.status(200).send({ success: true, message: allCartas });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -46,10 +46,10 @@ class CartasMazoController {
                 attributes: ["MazoId", "CartaId"]
             }, { where: { MazoId: MazoId } })
             if (!cartaByid) throw new Error("No existe la carta con ese ID")
-            res.status(200).send({ sucess: true, message: cartaByid });
+            res.status(200).send({ success: true, message: cartaByid });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -63,10 +63,10 @@ class CartasMazoController {
                     where: { id: id }
                 })
             if (!updatedCarta) throw new Error("No se pudo updatear la carta con ese ID")
-            res.status(200).send({ sucess: true, message: updatedCarta })
+            res.status(200).send({ success: true, message: updatedCarta })
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -74,10 +74,10 @@ class CartasMazoController {
         try {
             const { MazoId , CartaId } = req.body;
             const deletedCarta = await CartasMazo.destroy({ where: { MazoId: MazoId , CartaId:CartaId} })
-            res.status(200).send({ sucess: true, message: deletedCarta });
+            res.status(200).send({ success: true, message: deletedCarta });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
