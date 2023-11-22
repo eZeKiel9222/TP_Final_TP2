@@ -10,10 +10,10 @@ class MazoController {
         try {
             const { nombreMazo, UserId, ModoJuegoId, privado, } = req.body;
             const newMazo = await Mazo.create({ nombreMazo, privado, UserId, ModoJuegoId });
-            res.status(200).send({ sucess: true, message: newMazo });
+            res.status(200).send({ success: true, message: newMazo });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -37,10 +37,10 @@ class MazoController {
                     },
                 ]
             });
-            res.status(200).send({ sucess: true, message: allMazos });
+            res.status(200).send({ success: true, message: allMazos });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -66,10 +66,10 @@ class MazoController {
 
                 ]
             });
-            res.status(200).send({ sucess: true, message: allMazosByUser });
+            res.status(200).send({ success: true, message: allMazosByUser });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -101,10 +101,10 @@ class MazoController {
                 ]
             })
             if (!mazoByid) throw new Error("No existe el mazo con ese ID")
-            res.status(200).send({ sucess: true, message: mazoByid });
+            res.status(200).send({ success: true, message: mazoByid });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -118,10 +118,10 @@ class MazoController {
                     where: { id: id }
                 })
             if (!updatedMazo) throw new Error("No se pudo modificar el mazo con ese ID")
-            res.status(200).send({ sucess: true, message: updatedMazo })
+            res.status(200).send({ success: true, message: updatedMazo })
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
     updateEstado = async (req, res) => {
@@ -133,10 +133,10 @@ class MazoController {
                     where: { id: id }
                 })
             if (!updatedMazo) throw new Error("No se pudo modificar el mazo con ese ID")
-            res.status(200).send({ sucess: true, message: updatedMazo })
+            res.status(200).send({ success: true, message: updatedMazo })
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -144,10 +144,10 @@ class MazoController {
         try {
             const { id } = req.params;
             const deletedMazo = await Mazo.destroy({ where: { id: id } })
-            res.status(200).send({ sucess: true, message: deletedMazo });
+            res.status(200).send({ success: true, message: deletedMazo });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 

@@ -10,10 +10,10 @@ class CartaController {
                 where:{cardName:cardName , image:image, cardUrl:cardUrl},
                 attributes:["id","cardName","image","cardUrl"]
             });
-            res.status(200).send({ sucess: true, message: newCarta });
+            res.status(200).send({ success: true, message: newCarta });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -22,10 +22,10 @@ class CartaController {
             const allCartas = await Carta.findAll({
                 attributes: ["id", "cardName", "image", "cardUrl"]
             });
-            res.status(200).send({ sucess: true, message: allCartas });
+            res.status(200).send({ success: true, message: allCartas });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -34,10 +34,10 @@ class CartaController {
             const { id } = req.params;
             const cartaByid = await Carta.findByPk(id)
             if (!cartaByid) throw new Error("No existe la carta con ese ID")
-            res.status(200).send({ sucess: true, message: cartaByid });
+            res.status(200).send({ success: true, message: cartaByid });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -51,10 +51,10 @@ class CartaController {
                     where: { id: id }
                 })
             if (!updatedCarta) throw new Error("No se pudo updatear la carta con ese ID")
-            res.status(200).send({ sucess: true, message: updatedCarta })
+            res.status(200).send({ success: true, message: updatedCarta })
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -62,10 +62,10 @@ class CartaController {
         try {
             const { id } = req.params;
             const deletedCarta = await Carta.destroy({ where: { id: id } })
-            res.status(200).send({ sucess: true, message: deletedCarta });
+            res.status(200).send({ success: true, message: deletedCarta });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 

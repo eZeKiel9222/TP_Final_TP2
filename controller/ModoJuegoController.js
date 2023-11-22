@@ -7,10 +7,10 @@ class ModoJuegoController {
         try {
             const { nombreModo, image } = req.body;
             const newModo = await ModoJuego.create({ nombreModo, image });
-            res.status(200).send({ sucess: true, message: newModo });
+            res.status(200).send({ success: true, message: newModo });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -19,10 +19,10 @@ class ModoJuegoController {
             const allModos = await ModoJuego.findAll({
                 attributes: ["id", "nombreModo", "image"]
             });
-            res.status(200).send({ sucess: true, message: allModos });
+            res.status(200).send({ success: true, message: allModos });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -31,10 +31,10 @@ class ModoJuegoController {
             const { id } = req.params;
             const modoByid = await ModoJuego.findByPk(id)
             if (!modoByid) throw new Error("No existe el modo con ese ID")
-            res.status(200).send({ sucess: true, message: modoByid });
+            res.status(200).send({ success: true, message: modoByid });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -49,10 +49,10 @@ class ModoJuegoController {
                     where: { id: id }
                 })
             if (!updatedModo) throw new Error("No se pudo updater el rol con ese ID")
-            res.status(200).send({ sucess: true, message: updatedModo })
+            res.status(200).send({ success: true, message: updatedModo })
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -60,10 +60,10 @@ class ModoJuegoController {
         try {
             const { id } = req.params;
             const deletedModo = await ModoJuego.destroy({ where: { id: id } })
-            res.status(200).send({ sucess: true, message: deletedModo });
+            res.status(200).send({ success: true, message: deletedModo });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 

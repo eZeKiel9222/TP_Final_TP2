@@ -9,10 +9,10 @@ class UserController {
         try {
             const { userLogin, userPassword, nickName, email } = req.body;
             const newUser = await User.create({ userLogin, userPassword, nickName, email });
-            res.status(200).send({ sucess: true, message: newUser });
+            res.status(200).send({ success: true, message: newUser });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -27,10 +27,10 @@ class UserController {
                     }
                 }]
             });
-            res.status(200).send({ sucess: true, message: allUsers });
+            res.status(200).send({ success: true, message: allUsers });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -53,10 +53,10 @@ class UserController {
                 , attributes: ['id', 'userLogin', 'userPassword', 'nickName', 'email']
             })
             if (!UserByid) throw new Error("No existe el usuario con ese ID")
-            res.status(200).send({ sucess: true, message: UserByid });
+            res.status(200).send({ success: true, message: UserByid });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -70,10 +70,10 @@ class UserController {
                     where: { id: id }
                 })
             if (!updatedUser) throw new Error("No se pudo modificar rol con ese ID")
-            res.status(200).send({ sucess: true, message: updatedUser });
+            res.status(200).send({ success: true, message: updatedUser });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
@@ -85,24 +85,24 @@ class UserController {
                 where: { userLogin: userLogin, userPassword: userPassword }
             })
             if (!user) {
-                res.status(400).send({ sucess: false, message: "Credenciales Incorrectas" })
+                res.status(400).send({ success: false, message: "Credenciales Incorrectas" })
             } else {
                 const authData = { accessToken: accessToken, userInfo: user }
-                res.status(200).send({ sucess: true, message: authData })
+                res.status(200).send({ success: true, message: authData })
             }
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     }
     deleteUser = async (req, res) => {
         try {
             const { id } = req.params;
             const deletedUser = await User.destroy({ where: { id: 1 } })
-            res.status(200).send({ sucess: true, message: deletedUser });
+            res.status(200).send({ success: true, message: deletedUser });
         }
         catch (error) {
-            res.status(400).send({ sucess: false, message: error.message })
+            res.status(400).send({ success: false, message: error.message })
         }
     };
 
