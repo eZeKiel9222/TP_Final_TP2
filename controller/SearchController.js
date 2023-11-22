@@ -92,7 +92,11 @@ class SearchController {
                     },
                 ]
             });
+            if(allMazosByModo.length != 0){
             res.status(200).send({ success: true, message: allMazosByModo });
+            } else {
+            res.status(200).send({ success: false, message: 'No existe mazo con ese nombre' });
+            }
         }
         catch (error) {
             res.status(400).send({ success: false, message: error.message })
